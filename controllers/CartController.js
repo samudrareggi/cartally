@@ -4,7 +4,7 @@ class CartController {
   static addCart(req, res, next) {
     const data = {
       UserId: req.loggedInUser.id,
-      ProductId: req.params.id,
+      ProductId: req.body.ProductId,
       amount: +req.body.amount
     }
     Cart.create(data)
@@ -51,9 +51,9 @@ class CartController {
     Cart.destroy({ where: { id: req.params.id } })
     .then((data) => {
       if (!data) {
-        throw { name: "Cart Not Found", status: 404 }
+        throw { msg: "Cart Not Found", status: 404 }
       } else {
-        res.status(201).json({ message: "Cart success to delete" })
+        res.status(201).json({ msg: "Cart success to delete" })
       }
     })
     .catch(err => {
