@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    const { hashPassword } = require("../helpers/bcryptjs");
+    const {hashPassword} = require("../helpers/bcryptjs")
     /**
      * Add seed commands here.
      *
@@ -11,19 +11,18 @@ module.exports = {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
-     */
+    */
 
-    const data = [
-      {
-        email: "admin@email.com",
-        password: hashPassword("12345678"),
-        role: "admin",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ];
+    const data = [{
+      name: "admin",
+      email: "admin@mail.com",
+      password: hashPassword("12345678"),
+      role: "admin",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }]
 
-    return queryInterface.bulkInsert("Users", data, {});
+    return queryInterface.bulkInsert("Users", data, {})
   },
 
   down: (queryInterface, Sequelize) => {
@@ -33,6 +32,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    return queryInterface.bulkDelete("Users", null, {});
-  },
+    return queryInterface.bulkDelete("Users", null, {})
+  }
 };
