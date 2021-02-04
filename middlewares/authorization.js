@@ -3,7 +3,7 @@ const { User } = require("../models");
 function authorization(req, res, next) {
   User.findOne({
     where: {
-      email: req.body.email,
+      email: req.body.email || req.loggedInUser.email,
     },
   })
     .then((data) => {
