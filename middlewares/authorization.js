@@ -3,15 +3,19 @@ const { User } = require("../models");
 function authorization(req, res, next) {
   User.findOne({
     where: {
-      email: req.loggedInUser.email,
+      email: req.body.email || req.loggedInUser.email,
     },
-  }).then((data) => {
-    if (data.role === "admin") {
-      next();
-    } else {
-      throw { name: "Not Authorized" };
-    }
-  });
+  })
+    .then((data) => {
+      if (data.role === "admin") {
+        next();
+      } else {
+        throw { msg: "Not Authorized", status: 401 };
+      }
+    })
+    .catch((err) => {
+      next(err);
+    });
 }
 
 module.exports = authorization;
