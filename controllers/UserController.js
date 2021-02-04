@@ -13,9 +13,9 @@ class UserController {
     })
       .then(data => {
         if (!data) {
-          throw { name: "Wrong Email/Password", status: '401' }
+          throw { msg: "Wrong Email/Password", status: '401' }
         } else if (!comparePassword(password, data.password)) {
-          throw { name: "Wrong Email/Password", status: '401' }
+          throw { msg: "Wrong Email/Password", status: '401' }
         } else {
           const access_token = signToken({
             id: data.id,
