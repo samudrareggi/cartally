@@ -2,11 +2,11 @@ const { Banner } = require("../models")
 
 class BannerController {
   static addBanner(req, res, next){
-    const { title, image_url, status } = req.body
+    const { title, image, status } = req.body
 
-    Banner.create({ title, image_url, status })
+    Banner.create({ title, image, status })
       .then(data => {
-        res.status(201).json({ title, image_url, status })
+        res.status(201).json({ title, image, status })
       })
       .catch(err => {
         next(err)
@@ -14,9 +14,9 @@ class BannerController {
   }
 
   static putBannerById(req, res, next) {
-    const { title, image_url, status } = req.body
+    const { title, image, status } = req.body
 
-    Banner.update({ title, image_url, status }, { where: { id: req.params.id }, returning: true })
+    Banner.update({ title, image, status }, { where: { id: req.params.id }, returning: true })
       .then(data => {
         if (data[0] === 0) {
           throw { name: "Banner Not Found", status: 404 }
@@ -47,7 +47,7 @@ class BannerController {
     })
       .then(data => {
         if (!data) {
-          throw { name: "Banner Not Found", status: 404 }
+          throw { msg: "Banner Not Found", status: 404 }
         } else {
           res.status(200).json(data)
         }
@@ -61,9 +61,9 @@ class BannerController {
     Banner.destroy({ where: { id: req.params.id } })
     .then((data) => {
       if (!data) {
-        throw { name: "Banner Not Found", status: 404 }
+        throw { msg: "Banner Not Found", status: 404 }
       } else {
-        res.status(201).json({ message: "Banner success to delete" })
+        res.status(201).json({ msg: "Banner success to delete" })
       }
     })
     .catch(err => {
